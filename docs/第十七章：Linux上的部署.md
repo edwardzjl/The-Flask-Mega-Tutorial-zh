@@ -212,7 +212,7 @@ $ source venv/bin/activate
 (venv) $ pip install gunicorn pymysql
 ```
 
-我需要创建一个*.env*文件，其中包含所有需要的环境变量：
+我需要创建一个 *.env* 文件，其中包含所有需要的环境变量：
 
 */home/ubuntu/microblog/.env*：环境配置。
 
@@ -224,7 +224,7 @@ DATABASE_URL=mysql+pymysql://microblog:<db-password>@localhost:3306/microblog
 MS_TRANSLATOR_KEY=<your-translator-key-here>
 ```
 
-这个*.env*文件与我在[第十五章](https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%e7%ac%ac%e5%8d%81%e4%ba%94%e7%ab%a0%ef%bc%9a%e4%bc%98%e5%8c%96%e5%ba%94%e7%94%a8%e7%bb%93%e6%9e%84.md)展示的非常类似，但是我为SECRET_KEY使用了一个随机字符串。 为了生成这个随机字符串，我使用了下面的命令：
+这个 *.env* 文件与我在[第十五章](https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%e7%ac%ac%e5%8d%81%e4%ba%94%e7%ab%a0%ef%bc%9a%e4%bc%98%e5%8c%96%e5%ba%94%e7%94%a8%e7%bb%93%e6%9e%84.md)展示的非常类似，但是我为SECRET_KEY使用了一个随机字符串。 为了生成这个随机字符串，我使用了下面的命令：
 
 ```
 python3 -c "import uuid; print(uuid.uuid4().hex)
@@ -282,7 +282,7 @@ mysql> flush privileges;
 mysql> quit;
 ```
 
-你将需要用你选择的密码来替换`<db-password>`。 这将是`microblog`数据库用户的密码，所以不要使用你已为root用户选择的密码。 `microblog`用户的密码需要与你包含在*.env*文件中的`DATABASE_URL`变量中的密码相匹配。
+你将需要用你选择的密码来替换`<db-password>`。 这将是`microblog`数据库用户的密码，所以不要使用你已为root用户选择的密码。 `microblog`用户的密码需要与你包含在 *.env* 文件中的`DATABASE_URL`变量中的密码相匹配。
 
 如果你的数据库配置是正确的，你现在应该能够运行数据库迁移以创建所有的表：
 
@@ -310,7 +310,7 @@ mysql> quit;
 
 虽然gunicorn的设置非常简单，但从命令行运行服务器在生产服务器实际上不是一个恰当的方案。 我想要做的是让服务器在后台运行，并持续监视，因为如果由于某种原因导致服务器崩溃并退出，我想确保新的服务器自动启动以取代它。 而且我还想确保如果机器重新启动，服务器在启动时自动运行，而无需人工登录和启动。 我将使用上面安装的[supervisor](http://supervisord.org/)包来执行此操作。
 
-Supervisor使用配置文件定义它要监视什么程序以及如何在必要时重新启动它们。 配置文件必须存储在*/etc/supervisor/conf.d*中。 这是Microblog的配置文件，我将其称为*microblog.conf*：
+Supervisor使用配置文件定义它要监视什么程序以及如何在必要时重新启动它们。 配置文件必须存储在 */etc/supervisor/conf.d* 中。 这是Microblog的配置文件，我将其称为 *microblog.conf* ：
 
 */etc/supervisor/conf.d/microblog.conf*：Supervisor配置。
 
@@ -349,13 +349,13 @@ $ openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 \
 
 该命令将要求你提供关于应用程序和你自己的一些信息。 这些信息将包含在SSL证书中，如果用户请求查看它，Web浏览器则会向用户显示它们。上述命令的结果将是名为*key.pem*和*cert.pem*的两个文件，我将其放置在Microblog根目录的*certs*子目录中。
 
-要有一个由nginx服务的网站，你需要为它编写配置文件。 在大多数nginx安装中，这个文件需要位于*/etc/nginx/sites-enabled*目录中。Nginx在这个位置安装了一个我不需要的测试站点，所以我将首先删除它：
+要有一个由nginx服务的网站，你需要为它编写配置文件。 在大多数nginx安装中，这个文件需要位于 */etc/nginx/sites-enabled* 目录中。Nginx在这个位置安装了一个我不需要的测试站点，所以我将首先删除它：
 
 ```
 $ sudo rm /etc/nginx/sites-enabled/default
 ```
 
-下面你可以看到Microblog的nginx配置文件，它在*/etc/nginx/sites-enabled/microblog*中：
+下面你可以看到Microblog的nginx配置文件，它在 */etc/nginx/sites-enabled/microblog* 中：
 
 */etc/nginx/sites-enabled/microblog*：Nginx配置。
 
@@ -427,7 +427,7 @@ $ sudo service nginx reload
 (venv) $ sudo supervisorctl start microblog    # start a new server
 ```
 
-##树莓派托管
+## 树莓派托管
 
 [树莓派](http://www.raspberrypi.org/)是一款革命性低成本的小型Linux计算机，功耗非常低，因此它是托管家庭在线服务器的理想设备，可以全天候在线而无需捆绑你的台式电脑或笔记本电脑。 有几个Linux发行版可以在树莓派上运行。 我的选择是[Raspbian](http://www.raspbian.org/)，这是树莓派基金会的官方发行版。
 
